@@ -16,7 +16,7 @@ namespace WebCalc.Controllers
         public HomeController(ICalculateService serv)
         {
             _serv = serv;
-            //E
+            //Eb
         }
 
         public IActionResult Index()
