@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="myCarousel" class="carousel slide row" data-ride="carousel" data-interval="6000">
+
+    <input type="text" id="expressionInput" />
+    <input type="button" value="Calculate" onclick="submitForm()" />
+    <div>
+        <label id="result"></label>      
+    </div>
+</div>
+
+<script>
+
+    var submitForm = function () {
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "/api/calculate", true);
+        xhr.responseType = 'json';
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var data = xhr.response;
+
+                    if (data != null) {
+                        document.getElementById('result').innerText = data.result;
+                    }
+                }
+            }
+        };
+
+        xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        xhr.send(JSON.stringify({
+            expression: document.getElementById('expressionInput').value
+        }));
+        return false;
+    }
+
+
+</script>
